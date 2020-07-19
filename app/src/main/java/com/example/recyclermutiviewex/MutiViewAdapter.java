@@ -51,7 +51,7 @@ public class MutiViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0)
+        if (position == 0 || position ==1 || position==2 )
             return LAYOUT_ONE;
         else
             return LAYOUT_TWO;
@@ -100,20 +100,58 @@ public class MutiViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Movie mData = mItem.get(i);
         if (mData != null) {
             if (viewHolder.getItemViewType() == LAYOUT_ONE) {
-                ViewHolderOne viewHolderOne = (ViewHolderOne) viewHolder;
-                viewHolderOne.mImage.setImageResource(mData.getImage());
-                viewHolderOne.mTextTitle.setText(mData.getTitle());
-                viewHolderOne.mTextContent.setText(mData.getContent());
+                if(viewHolder.getAdapterPosition()==0 || viewHolder.getAdapterPosition()==2){
+                    ViewHolderOne viewHolderOne = (ViewHolderOne) viewHolder;
+                    viewHolderOne.mImage1.setImageResource(mData.getImage());
+                    viewHolderOne.mTextTitle1.setText(mData.getTitle());
+                    viewHolderOne.mTextContent1.setText(mData.getContent());
+//                    viewHolderOne.mImage1.setOnTouchListener(new View.OnTouchListener() {
+//                        @Override
+//                        public boolean onTouch(View v, MotionEvent event) {
+//                            if (MotionEventCompat.getActionMasked(event) ==
+//                                    MotionEvent.ACTION_DOWN) {
+//                                mDragStartListener.onStartDrag(viewHolder);
+//                            }
+//                            return false;
+//                        }
+//                    });
+                }else if(viewHolder.getAdapterPosition()==1){
+                    ViewHolderOne viewHolderOne = (ViewHolderOne) viewHolder;
+                    viewHolderOne.mImage2.setImageResource(mData.getImage());
+                    viewHolderOne.mTextTitle2.setText(mData.getTitle());
+                    viewHolderOne.mTextContent2.setText(mData.getContent());
+//                    viewHolderOne.mImage2.setOnTouchListener(new View.OnTouchListener() {
+//                        @Override
+//                        public boolean onTouch(View v, MotionEvent event) {
+//                            if (MotionEventCompat.getActionMasked(event) ==
+//                                    MotionEvent.ACTION_DOWN) {
+//                                mDragStartListener.onStartDrag(viewHolder);
+//                            }
+//                            return false;
+//                        }
+//                    });
+                }
+
 
             } else {
                 ViewHolderTwo viewHolderTwo = (ViewHolderTwo) viewHolder;
-                Glide.with(viewHolderTwo.imageBig)
+                Glide.with(viewHolderTwo.mImage)
                         .load(mData.getImage())
                         .placeholder(R.mipmap.ic_launcher)
-                        .into(viewHolderTwo.imageBig);
+                        .into(viewHolderTwo.mImage);
 //                viewHolderTwo.imageBig.setImageResource(mData.getImage());
                 viewHolderTwo.textName.setText(mData.getTitle());
                 viewHolderTwo.textId.setText(mData.getContent());
+//                viewHolderTwo.mImage.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        if (MotionEventCompat.getActionMasked(event) ==
+//                                MotionEvent.ACTION_DOWN) {
+//                            mDragStartListener.onStartDrag(viewHolder);
+//                        }
+//                        return false;
+//                    }
+//                });
             }
         }
         viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
@@ -134,27 +172,30 @@ public class MutiViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class ViewHolderOne extends RecyclerView.ViewHolder {
-        private ImageView mImage;
-        private TextView mTextTitle;
-        private TextView mTextContent;
+        private ImageView mImage1,mImage2;
+        private TextView mTextTitle1, mTextTitle2;
+        private TextView mTextContent1,mTextContent2;
 
         public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
-            mImage = itemView.findViewById(R.id.image_movie);
-            mTextTitle = itemView.findViewById(R.id.text_title);
-            mTextContent = itemView.findViewById(R.id.text_content);
+            mImage1 = itemView.findViewById(R.id.image_movie1);
+            mImage2 = itemView.findViewById(R.id.image_movie2);
+            mTextTitle1 = itemView.findViewById(R.id.text_title1);
+            mTextTitle2 = itemView.findViewById(R.id.text_title2);
+            mTextContent1 = itemView.findViewById(R.id.text_content1);
+            mTextContent2 = itemView.findViewById(R.id.text_content2);
 
         }
     }
 
     public class ViewHolderTwo extends RecyclerView.ViewHolder {
-        private ImageView imageBig;
+        private ImageView mImage;
         private TextView textName;
         private TextView textId;
 
         public ViewHolderTwo(@NonNull View itemView) {
             super(itemView);
-            imageBig = itemView.findViewById(R.id.image_big);
+            mImage = itemView.findViewById(R.id.image_movie);
             textName = itemView.findViewById(R.id.text_name);
             textId = itemView.findViewById(R.id.text_id);
 
